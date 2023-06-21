@@ -1,0 +1,9 @@
+version: "3.10"
+
+services:
+  bot:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - .:/aiogram-book-bot
