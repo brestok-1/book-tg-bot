@@ -2,11 +2,12 @@ import asyncio
 import logging
 
 from aiogram import Bot, Dispatcher
+from aiogram.fsm.storage.memory import MemoryStorage
 
 from config_data.config import load_config
 from handlers import user_handlers, other_handlers
 from keyboards.main_menu import set_main_menu
-
+from models.models import storage
 
 async def main():
     logging.basicConfig(level=logging.INFO, format='%(filename)s:%(lineno)d #%(levelname)-8s '
@@ -14,7 +15,8 @@ async def main():
     logging.info('Starting Bot')
     config = load_config()
     bot = Bot(token=config.tg_bot.token, parse_mode='HTML')
-    dp = Dispatcher()
+    storage = MemoryStorage()
+    dp = Dispatcher(storage=storage)
 
     await set_main_menu(bot)
 

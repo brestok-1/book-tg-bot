@@ -26,7 +26,7 @@ def prepare_book(content: str) -> dict[int:str]:
             text, index = _get_part_text(content, end_index, PAGE_SIZE)
             end_index += index
             number += 1
-        except Exception:
+        except IndexError:
             return book_dict
 
 
