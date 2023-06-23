@@ -21,7 +21,10 @@ LEXICON = {
                     'bookmark a page - while reading '
                     'a book, click on the button with the number '
                     'of this page\n\n/continue - continue reading',
-    'cancel_text': '/continue - continue reading'}
+    'cancel_text': '/continue - continue reading',
+    'other_commands': 'Sorry, I do not know how to respond to such a command.'
+                      '\n\nTo get help about the work of the bot, type /help'
+}
 
 LEXICON_COMMANDS = {
     '/beginning': 'To the begin of the book',
