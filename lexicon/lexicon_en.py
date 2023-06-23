@@ -1,4 +1,7 @@
 LEXICON = {
+    'start': "<b>Hi!</b> let's play a game with you "
+             "'Pit, scissors, paper'!\nif you suddenly forgot the rules, the /help command will help you!\n\n"
+             "<b>Do you want to start the game?</b>'",
     'forward': '>>',
     'backward': '<<',
     '/start': '<b>Hi, reader!</b>\n\nThis is a bot '
