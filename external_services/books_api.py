@@ -1,4 +1,5 @@
 import json
+from pprint import pprint
 
 import requests
 
@@ -32,5 +33,6 @@ def _get_detail_api_data(slug: str) -> dict:
 
 
 if __name__ == '__main__':
+    pprint(_get_api_data())
     print(get_all_books_title_slug())
     print(get_book_content('kapitanskaya-dochka'))

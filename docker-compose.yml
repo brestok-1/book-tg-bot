@@ -3,18 +3,23 @@ version: "3.10"
 services:
   bot:
     build: .
+#    command: sh -c "python3 -m bot"
     env_file:
-      - .env
+      - ./.env
     volumes:
       - .:/aiogram-book-bot
+#    restart: always
     depends_on:
       - db
   db:
-    image: postgres:13
+    image: postgres:15
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-      - .env
+      - ./.env
+    restart: on-failure
+    ports:
+      - "5432:5432"
 
 volumes:
   postgres_data:

@@ -9,5 +9,4 @@ async def set_main_menu(bot: Bot):
         command=command,
         description=description,
     ) for command, description in LEXICON_COMMANDS.items()]
-    await  bot.set_my_commands(main_menu_commands)
-
+    await bot.set_my_commands(main_menu_commands)
