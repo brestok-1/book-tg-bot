@@ -19,7 +19,7 @@ class RegisterCheck(BaseMiddleware):
             event: Union[Message, CallbackQuery],
             data: Dict[str, Any]
     ) -> Any:
-        session_maker: sessionmaker = data['sessionmaker']
+        session_maker: sessionmaker = data['session_maker']
         async with session_maker() as session:
             async with session.begin():
                 result = await session.execute(select(User).where(User.user_id == event.from_user.id))
