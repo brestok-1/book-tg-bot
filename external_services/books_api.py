@@ -1,25 +1,46 @@
 import json
 from pprint import pprint
-
+from dataclasses import dataclass
 import requests
 
 
-def get_all_books_title_slug() -> dict:
+@dataclass
+class Book:
+    title: str
+    slug: str
+    author: str
+
+
+def get_all_books():
     data = _get_api_data()
-    dict_title_slug = _parse_title_slug(data)
-    return dict_title_slug
+    books = _parse_books_data(data)
+    return books
+
+
+def get_all_slugs() -> list:
+    data = _get_api_data()
+    slugs = _parse_slug_data(data)
+    return slugs
+
+
+def _parse_slug_data(data: list) -> list:
+    slugs = [i['slug'] for i in data]
+    return slugs
+
+
+def _parse_books_data(data: list[dict]) -> list[Book]:
+    books = []
+    for i in data:
+        title = i['title']
+        slug = i['slug']
+        author = i['author']
+        books.append(Book(title, slug, author))
+    return books
 
 
 def _get_api_data() -> list[dict]:
-    response = requests.get('http://127.0.0.1:8000/api/books/')
+    response = requests.get('http://0.0.0.0:8000/api/books/')
     return json.loads(response.text)
-
-
-def _parse_title_slug(data: list[dict]) -> dict:
-    dict_title_slug = {}
-    for i in data:
-        dict_title_slug[i['title']] = i['slug']
-    return dict_title_slug
 
 
 def get_book_content(slug: str) -> str:
@@ -33,6 +54,9 @@ def _get_detail_api_data(slug: str) -> dict:
 
 
 if __name__ == '__main__':
-    pprint(_get_api_data())
-    print(get_all_books_title_slug())
-    print(get_book_content('kapitanskaya-dochka'))
+    # pprint(_get_api_data())
+    # print(get_book_content('kapitanskaya-dochka'))
+    print(get_all_slugs())
+    books = get_all_books()
+    for i in books:
+        print(f'{i.title} - {i.author} - {i.slug}')

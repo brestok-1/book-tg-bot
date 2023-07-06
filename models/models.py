@@ -21,6 +21,7 @@ class Bookmark(Base):
     __tablename__ = 'bookmarks'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
+    user = relationship("User", back_populates='bookmarks')
     book = Column(VARCHAR(125))
     page = Column(Integer)
 
