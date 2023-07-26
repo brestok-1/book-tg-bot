@@ -9,8 +9,6 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-#    networks:
-#      - tg-book-network
   bot:
     build: .
     command: "python -m bot"
@@ -18,14 +16,19 @@ services:
       - ./.env
     depends_on:
       - db
+      - redis
     volumes:
       - .:/aiogram-book-bot
-#    networks:
-#      - tg-book-network
+    restart: always
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: on-failure
+
 
 volumes:
   postgres_data:
-
-#networks:
-#  tg-book-network:
-#    external: true
+  redis-data:

@@ -1,6 +1,8 @@
 import re
 from config_data.config import PAGE_SIZE
-from external_services.books_api import get_book_content
+from config_data.db_config import redis
+from models.methods import get_book_content
+import aioredis
 
 
 def _get_part_text(text: str, start: int, size: int) -> tuple[str, int]:
@@ -12,22 +14,45 @@ def _get_part_text(text: str, start: int, size: int) -> tuple[str, int]:
 
 
 def _clear_text(text: str) -> str:
-    clean_text = re.sub(r'\[\d]', '', text)
+    clean_text = re.sub(r'\[\d{0,}]', '', text)
     return clean_text
 
 
-def prepare_book(content: str) -> dict[int:str]:
-    book_dict = {}
-    number = 1
-    text, end_index = _get_part_text(content, 0, PAGE_SIZE)
-    while True:
-        try:
-            book_dict[number] = text.strip()
-            text, index = _get_part_text(content, end_index, PAGE_SIZE)
-            end_index += index
-            number += 1
-        except IndexError:
-            return book_dict
+# async def prepare_book(slug: str, session) -> dict[int:str]:
+#     content = await get_book_content(slug, session)
+#     book_dict = {}
+#     number = 1
+#     text, end_index = _get_part_text(content, 0, PAGE_SIZE)
+#     while True:
+#         try:
+#             book_dict[number] = text.strip()
+#             text, index = _get_part_text(content, end_index, PAGE_SIZE)
+#             end_index += index
+#             number += 1
+#         except IndexError:
+#             return book_dict
+
+
+async def prepare_book(slug: str, session) -> dict[int:str]:
+    book_dict = await redis.hgetall(slug)
+    if not book_dict:
+        content = await get_book_content(slug, session)
+        book_dict = {}
+        number = 1
+        text, end_index = _get_part_text(content, 0, PAGE_SIZE)
+        while True:
+            try:
+                book_dict[number] = text.strip()
+                text, index = _get_part_text(content, end_index, PAGE_SIZE)
+                end_index += index
+                number += 1
+            except IndexError:
+                break
+        await redis.hmset(slug, book_dict)
+    else:
+        book_dict = {int(key.decode()): value.decode() for key, value in book_dict.items()}
+        book_dict = dict(sorted(book_dict.items(), key=lambda x: x[0]))
+    return book_dict
 
 
 if __name__ == '__main__':
