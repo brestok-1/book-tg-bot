@@ -9,7 +9,7 @@ from config_data.db_config import get_async_engine, get_async_sessionmaker, redi
 from handlers import user_handlers, other_handlers
 from keyboards.main_menu import set_main_menu
 from middlewares.register_check import RegisterCheck
-from models.prepare import initialize_book_data, scheduled_task
+from models.prepare import scheduled_task
 import aiocron
 
 
@@ -38,14 +38,17 @@ async def main():
 
     async_engine = get_async_engine(postgres_url)
     session_maker = get_async_sessionmaker(async_engine)
+
     # Delegated to alembic
     # await proceed_schemas(async_engine, Base.metadata)
+
     dp.include_router(user_handlers.router)
     dp.include_router(other_handlers.router)
-    # await initialize_book_data(session=session_maker)
+
     aiocron.crontab('*/10 * * * *', func=scheduled_task, start=True, args=(session_maker,))
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot, session_maker=session_maker)
+
 
 if __name__ == '__main__':
     try:

@@ -1,13 +1,9 @@
 from typing import Callable, Dict, Any, Awaitable, Union
-
 from aiogram import BaseMiddleware
 from aiogram.types import Message, CallbackQuery
-from sqlalchemy import select
-
 from sqlalchemy.ext.asyncio import async_sessionmaker
 
 from models.methods import is_user_exist, create_user
-from models.models import User
 
 
 class RegisterCheck(BaseMiddleware):

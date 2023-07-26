@@ -2,7 +2,7 @@ from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession
 from sqlalchemy import select
 
 from config_data.db_config import redis
-from models.models import User, Bookmark, Book
+from models.models import User, Book
 
 
 async def get_user(user_id: int, session: async_sessionmaker):

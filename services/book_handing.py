@@ -55,8 +55,3 @@ async def prepare_book(slug: str, session) -> dict[int:str]:
     return book_dict
 
 
-if __name__ == '__main__':
-    text = get_book_content('kapitanskaya-dochka')
-    diction = prepare_book(text)
-    for k, v in diction.items():
-        print(f'{k} - {v}')

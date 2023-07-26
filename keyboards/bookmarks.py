@@ -1,8 +1,5 @@
-import re
-
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from filters.filters import DelCallbackFactory, BookCallbackFactory
 from lexicon.lexicon_en import LEXICON
