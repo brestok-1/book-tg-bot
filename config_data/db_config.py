@@ -19,4 +19,4 @@ def get_async_sessionmaker(engine: AsyncEngine) -> async_sessionmaker:
     return async_sessionmaker(bind=engine, class_=AsyncSession)
 
 
-redis = Redis(host=env('REDIS_HOST'))
+redis = Redis(host='localhost')

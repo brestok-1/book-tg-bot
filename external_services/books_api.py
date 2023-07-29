@@ -38,5 +38,5 @@ def _parse_books_data(data: list[dict]) -> list[Book]:
 
 
 def _get_api_data() -> list[dict]:
-    response = requests.get('http://0.0.0.0:8000/api/books/')
+    response = requests.get('http://booktgbotapi.pythonanywhere.com/api/books/')
     return json.loads(response.text)
