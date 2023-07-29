@@ -9,24 +9,24 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-#  bot:
-#    build: .
-#    command: sh -c "make migrate && python -m bot"
-#    env_file:
-#      - ./.env
-#    depends_on:
-#      - db
-#      - redis
-#    volumes:
-#      - .:/aiogram-book-bot
-#    restart: always
-#  redis:
-#    image: redis
-#    ports:
-#      - "6379:6379"
-#    volumes:
-#      - redis-data:/data
-#    restart: on-failure
+  bot:
+    build: .
+    command: sh -c "make migrate && python -m bot"
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - .:/aiogram-book-bot
+    restart: always
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: on-failure
 
 
 volumes:

@@ -9,7 +9,7 @@ from config_data.db_config import get_async_engine, get_async_sessionmaker, redi
 from handlers import user_handlers, other_handlers
 from keyboards.main_menu import set_main_menu
 from middlewares.register_check import RegisterCheck
-from models.prepare import scheduled_task
+from models.prepare import scheduled_task, initialize_book_data
 import aiocron
 
 
@@ -45,7 +45,9 @@ async def main():
     dp.include_router(user_handlers.router)
     dp.include_router(other_handlers.router)
 
-    aiocron.crontab('*/10 * * * *', func=scheduled_task, start=True, args=(session_maker,))
+    await initialize_book_data(session_maker)
+
+    aiocron.crontab('*/60 * * * *', func=scheduled_task, start=True, args=(session_maker,))
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot, session_maker=session_maker)
 
