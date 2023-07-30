@@ -9,8 +9,7 @@ LEXICON = {
              '\n/beginning - '
              'Go to beginning of this book\n/continue - continue '
              'reading\n/bookmarks - view the list of bookmarks\n/help - '
-             'help on the work of the bot\n\nTo save a bookmark - '
-             'click on the button with the page number\n\n<b>Enjoy reading!</b>',
+             'help on the work of the bot\n\n<b>Enjoy reading!</b>',
     '/bookmarks': '<b>This is a list of your bookmarks:</b>',
     '/books': '<b>List of available books in our library</b>',
     'edit_bookmarks': '<b>Edit bookmarks</b>',
