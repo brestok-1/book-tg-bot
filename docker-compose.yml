@@ -3,7 +3,7 @@ services:
   db:
     image: postgres:15
     env_file:
-      - ./.env
+      - .env
     restart: on-failure
     ports:
       - "5432:5432"
@@ -13,7 +13,7 @@ services:
     build: .
     command: sh -c "make migrate && python -m bot"
     env_file:
-      - ./.env
+      - .env
     depends_on:
       - db
       - redis
