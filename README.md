@@ -50,8 +50,10 @@ I wrote a python bot using aiogram. I used two databases: Postgresql for storing
 
 ***Method 1: Via docker-compose***
 1. Create a .env file and paste the data from the .env.example file into it
-2. 
-2. ```
-    docker-compose up --build
-    ```
+2. In REDIS_HOST and POSTGRES_HOST, specify the names of docker-compose services (redis and db)
+3. In BOT_TOKEN, specify the token of your telegram bot created earlier via BotFather
+4. In the terminal, enter the following command:
+```
+docker-compose up --build
+```
 
