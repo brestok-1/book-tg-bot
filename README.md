@@ -80,6 +80,10 @@ pip3 install -r requirements.txt
 3. Create a .env file and paste the data from the .env.example file into it
 4. In REDIS_HOST and POSTGRES_HOST, specify localhost
 5. In BOT_TOKEN, specify the token of your telegram bot created earlier via BotFather
-6. Run the file bot.py
+6. In the terminal, enter the following command:
+
+```
+watchfiles --filter python 'python -m bot'
+```
 
 ## <div align="center">Thank you for taking the time to review my project. Enjoy reading!👋</div>
