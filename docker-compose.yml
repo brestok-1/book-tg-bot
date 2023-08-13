@@ -11,7 +11,7 @@ services:
       - postgres_data:/var/lib/postgresql/data/
   bot:
     build: .
-    command: sh -c "make migrate && python -m bot"
+    command: sh -c "make migrate && watchfiles --filter python 'python -m bot'"
     env_file:
       - .env
     depends_on:
